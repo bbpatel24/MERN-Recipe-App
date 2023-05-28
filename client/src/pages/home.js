@@ -11,7 +11,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/recipes");
+        const response = await axios.get("http://localhost:3000/recipes");
         setRecipes(response.data);
       } catch (err) {
         console.log(err);
@@ -21,7 +21,7 @@ export const Home = () => {
     const fetchSavedRecipes = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
+          `http://localhost:3000/recipes/savedRecipes/ids/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
@@ -35,7 +35,7 @@ export const Home = () => {
 
   const saveRecipe = async (recipeID) => {
     try {
-      const response = await axios.put("http://localhost:3001/recipes", {
+      const response = await axios.put("http://localhost:3000/recipes", {
         recipeID,
         userID,
       });
@@ -48,28 +48,33 @@ export const Home = () => {
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
-    <div>
-      <h1>Recipes</h1>
-      <ul>
-        {recipes.map((recipe) => (
-          <li key={recipe._id}>
+    <div className="home">
+    <div className="home-container">
+    <p className="home-title">Recipes</p>
+    <ul className="home-list">
+    {recipes.map((recipe) => (
+      <li className="home-list-item" key={recipe._id}>
             <div>
-              <h2>{recipe.name}</h2>
+              <p className="home-name">{recipe.name}</p>
+              </div>
+              <p className="home-cook-time">Cooking Time: {recipe.cookingTime} minutes</p>
+              <div className="home-instructions">
+              <p className="home-instructions-information">Instructions: {recipe.instructions}</p>
+              </div>
+              <figure className="home-image-wrapper">
+              <img className="home-image" src={recipe.imageUrl} alt={recipe.name} />
+              </figure>
               <button
                 onClick={() => saveRecipe(recipe._id)}
                 disabled={isRecipeSaved(recipe._id)}
-              >
+                className="home-button"
+                >
                 {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
               </button>
-            </div>
-            <div className="instructions">
-              <p>{recipe.instructions}</p>
-            </div>
-            <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} minutes</p>
           </li>
         ))}
-      </ul>
-    </div>
-  );
-};
+        </ul>
+        </div>
+        </div>
+        );
+      };

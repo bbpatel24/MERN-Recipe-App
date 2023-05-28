@@ -12,12 +12,20 @@ app.use(cors());
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
-mongoose.connect(
-  "mongodb+srv://user123:Password123Tech@test.m6cb1nv.mongodb.net/recipetest?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose
+  .connect(
+    "mongodb+srv://bhavyapatel0811:Bhavyapatel08@recipeapp.zhysm90.mongodb.net/?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
 
-app.listen(3001, () => console.log("Server started"));
+  
+  .then(() => {
+     
+    app.listen(3000, () => console.log(`Server started `));
+  })
+  .catch((err) => {
+    console.log(err);
+  });

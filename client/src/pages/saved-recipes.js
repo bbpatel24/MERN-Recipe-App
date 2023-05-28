@@ -10,7 +10,7 @@ export const SavedRecipes = () => {
     const fetchSavedRecipes = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/${userID}`
+          `http://localhost:3000/recipes/savedRecipes/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
@@ -21,16 +21,18 @@ export const SavedRecipes = () => {
     fetchSavedRecipes();
   }, []);
   return (
-    <div>
-      <h1>Saved Recipes</h1>
-      <ul>
+    <div className="saved-recipe-container">
+      <p className="home-title">Saved Recipes</p>
+      <ul className="saved-recipes-list">
         {savedRecipes.map((recipe) => (
-          <li key={recipe._id}>
+          <li className="saved-recipe-item" key={recipe._id}>
             <div>
-              <h2>{recipe.name}</h2>
+              <p className="home-name">{recipe.name}</p>
             </div>
-            <p>{recipe.description}</p>
-            <img src={recipe.imageUrl} alt={recipe.name} />
+            <p>{recipe.instructions}</p>
+            <figure className="home-image-wrapper">
+            <img className="home-image" src={recipe.imageUrl} alt={recipe.name} />
+            </figure>
             <p>Cooking Time: {recipe.cookingTime} minutes</p>
           </li>
         ))}
