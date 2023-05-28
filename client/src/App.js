@@ -10,6 +10,10 @@ import Register from "./pages/register";
 function App() {
   return (
     <div className="App">
+      <header className="App-header">
+        <button onClick={callApi}>Call API</button>
+      </header>
+
       <Router>
         <Navbar />
         <Routes>
@@ -18,10 +22,14 @@ function App() {
           <Route path="/saved-recipes" element={<SavedRecipes />} />
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
-          </Routes>
+        </Routes>
       </Router>
     </div>
   );
 }
-
+function callApi() {
+  fetch("https://simple-node-server-niru.herokuapp.com/", { method: "GET" })
+    .then((data) => data.json())
+    .then((json) => alert(JSON.stringify(json)));
+}
 export default App;
