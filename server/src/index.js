@@ -12,20 +12,21 @@ app.use(cors());
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
-mongoose
-  .connect(
-    "mongodb+srv://bhavyapatel0811:Bhavyapatel08@recipeapp.zhysm90.mongodb.net/?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+// app.get("/", function (req, res) {
+//   res.json("server started")
+// })
 
-  
-  .then(() => {
-     
-    app.listen(3000, () => console.log(`Server started `));
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+mongoose.connect(DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+PORT =
+  process.env.PORT ||
+  (8080)
+    .then(() => {
+      app.listen(PORT, () => console.log(`Server started `));
+    })
+    .catch((err) => {
+      console.log(err);
+    });

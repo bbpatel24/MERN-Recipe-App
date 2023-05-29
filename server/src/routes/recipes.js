@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
+   // res.json("server started")
     const result = await RecipesModel.find({});
     res.status(200).json(result);
   } catch (err) {
